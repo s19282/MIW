@@ -4,9 +4,17 @@ import numpy as np
 # Rock paper scissors game
 def game():
     answers = ['R', 'P', 'S']
-    probability = [[1, 1, 1],
-                   [1, 1, 1],
-                   [1, 1, 1]]
+    moves = {'R': 'P', 'P': 'S', 'S': 'R'}
+    number = {'R': 1, 'P': 2, 'S': 3}
+
+    probability = [[1 / 3, 1 / 3, 1 / 3],
+                   [1 / 3, 1 / 3, 1 / 3],
+                   [1 / 3, 1 / 3, 1 / 3]]
+
+    counter = [[1, 1, 1],
+               [1, 1, 1],
+               [1, 1, 1]]
+    # next ->, state^
     # RR RP RS
     # PR PP PS
     # SR SP SS
@@ -17,17 +25,21 @@ def game():
 
     while opponent != "END":
 
-        opponent = input('Enter your input:').upper()
+        if previous == 'R':
+            move = np.random.choice(answers, p=probability[0])
+            print(move)
+        elif previous == 'P':
+            move = np.random.choice(answers, p=probability[1])
+            print(move)
+        elif previous == 'S':
+            move = np.random.choice(answers, p=probability[2])
+            print(move)
 
-        if opponent == 'R':
-            print(opponent)
-            # state = np.random.choice(t1, p=p_t1[0])
-        elif opponent == 'P':
-            print(opponent)
-            # state = np.random.choice(t1, p=p_t1[1])
-        elif opponent == 'S':
-            print(opponent)
-            # state = 4
+        opponent = input('Enter your input:').upper()
+        counter[number.get(previous)][number.get(opponent)] += 1
+
+        previous = opponent
+
     print("Game ended!")
 
 
