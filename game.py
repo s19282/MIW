@@ -11,7 +11,7 @@ def updateProbability(counter, probability):
 def game():
     answers = ['R', 'P', 'S']
     moves = {'R': 'P', 'P': 'S', 'S': 'R'}
-    number = {'R': 1, 'P': 2, 'S': 3}
+    number = {'R': 0, 'P': 1, 'S': 2}
 
     probability = [[1 / 3, 1 / 3, 1 / 3],
                    [1 / 3, 1 / 3, 1 / 3],
@@ -21,11 +21,11 @@ def game():
                [1, 1, 1],
                [1, 1, 1]]
 
-    # next ->, state^
-    # RR RP RS
-    # PR PP PS
-    # SR SP SS
-
+    # s| next ->
+    # t| RR RP RS
+    # a| PR PP PS
+    # t| SR SP SS
+    # e|
     previousMove = 'R'
 
     opponentsMove = "!END"
@@ -34,18 +34,20 @@ def game():
 
         if previousMove == 'R':
             move = np.random.choice(answers, p=probability[0])
-            print(move)
+            print(moves.get(move))
         elif previousMove == 'P':
             move = np.random.choice(answers, p=probability[1])
-            print(move)
+            print(moves.get(move))
         elif previousMove == 'S':
             move = np.random.choice(answers, p=probability[2])
-            print(move)
+            print(moves.get(move))
 
         opponentsMove = input('Enter your input:').upper()
         counter[number.get(previousMove)][number.get(opponentsMove)] += 1
         updateProbability(counter, probability)
         previousMove = opponentsMove
+        print(np.array(counter))
+        print(np.array(probability))
 
     print("Game ended!")
 
