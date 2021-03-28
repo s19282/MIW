@@ -1,5 +1,6 @@
 import numpy as np
 import matplotlib.pyplot as plt
+from termcolor import colored
 
 
 # Rock paper scissors game
@@ -14,6 +15,7 @@ def game():
     print("R - Rock")
     print("P - Paper")
     print("S - Scissors")
+    print("END - End game and see results.")
 
     answers = ['R', 'P', 'S']
     responses = {'R': 'P', 'P': 'S', 'S': 'R'}
@@ -28,22 +30,13 @@ def game():
     # a| PR PP PS
     # t| SR SP SS
     # e|
+
     computerScoreList = []
     computerScore = 0
     totalGamesPlayed = 0
     previousMove = 'R'
     opponentsMove = "!END"
-
-    # x = np.linspace(0, np.pi * 2, 100)
-    # y = np.sin(x)
-    #
-    # plt.plot(x, y)
-    # plt.grid(True)
-    # plt.xlim(0, np.pi * 2)
-    # plt.xlabel("x")
-    # plt.ylabel("f(x) = sin(x)")
-    # plt.title("Wykres funkcji f(x) = sin(x)")
-    # plt.show()
+    plt.clf()
 
     while opponentsMove != "END":
         print("-------------------------")
@@ -55,7 +48,8 @@ def game():
         elif previousMove == 'S':
             predictMove = np.random.choice(answers, p=probability[2])
 
-        opponentsMove = input('Enter your input:').upper()
+        opponentsMove = input('Enter your answer:').upper()
+
         if opponentsMove == "END":
             break
         elif not answers.__contains__(opponentsMove):
@@ -64,13 +58,14 @@ def game():
         else:
             print("Computer: ", responses.get(predictMove), " You: ", opponentsMove)
             if predictMove == opponentsMove:
-                print("Computer won!")
+                print(colored("Computer won!", "red"))
                 computerScore += 1
             elif responses.get(predictMove) == opponentsMove:
-                print("Draw!")
+                print(colored("Draw!", "blue"))
             else:
-                print("You won!")
+                print(colored("You won!", "green"))
                 computerScore -= 1
+
             counter[answers.index(previousMove)][answers.index(opponentsMove)] += 1
             updateProbability(counter, probability)
             previousMove = opponentsMove
@@ -81,7 +76,7 @@ def game():
     print("Game ended!")
     print("Computer score: ", computerScore)
     print("Games played: ", totalGamesPlayed)
-    plt.plot(np.arange(len(computerScoreList)), computerScoreList, 'r*')
+    plt.plot(np.arange(totalGamesPlayed), computerScoreList, 'r*')
     plt.xlabel("Iteration")
     plt.ylabel("Value")
     plt.title("Computer score")
