@@ -2,6 +2,12 @@ import numpy as np
 
 
 # Rock paper scissors game
+def updateProbability(counter, probability):
+    for i, row in enumerate(counter):
+        for j, col in enumerate(row):
+            probability[i][j] = counter[i][j] / np.sum(row)
+
+
 def game():
     answers = ['R', 'P', 'S']
     moves = {'R': 'P', 'P': 'S', 'S': 'R'}
@@ -14,31 +20,32 @@ def game():
     counter = [[1, 1, 1],
                [1, 1, 1],
                [1, 1, 1]]
+
     # next ->, state^
     # RR RP RS
     # PR PP PS
     # SR SP SS
 
-    previous = 'R'
+    previousMove = 'R'
 
-    opponent = "!END"
+    opponentsMove = "!END"
 
-    while opponent != "END":
+    while opponentsMove != "END":
 
-        if previous == 'R':
+        if previousMove == 'R':
             move = np.random.choice(answers, p=probability[0])
             print(move)
-        elif previous == 'P':
+        elif previousMove == 'P':
             move = np.random.choice(answers, p=probability[1])
             print(move)
-        elif previous == 'S':
+        elif previousMove == 'S':
             move = np.random.choice(answers, p=probability[2])
             print(move)
 
-        opponent = input('Enter your input:').upper()
-        counter[number.get(previous)][number.get(opponent)] += 1
-
-        previous = opponent
+        opponentsMove = input('Enter your input:').upper()
+        counter[number.get(previousMove)][number.get(opponentsMove)] += 1
+        updateProbability(counter, probability)
+        previousMove = opponentsMove
 
     print("Game ended!")
 
