@@ -37,7 +37,7 @@ class LogisticRegressionGD(object):
         return np.where(self.net_input(X) >= 0.0, 1, 0)
 
 
-class MultiClassClassifier:
+class LogisticRegressionMultiClassClassifier:
     def __init__(self, lrgd1, lrgd2, lrgd3):
         self.lrgd1 = lrgd1
         self.lrgd2 = lrgd2
@@ -45,8 +45,8 @@ class MultiClassClassifier:
 
     def predict(self, X):
         return np.where(self.lrgd1.predict(X) == 1, 0,
-                        np.where(self.lrgd3.predict(X) == 1, 2,1))
-                                 # np.where(self.lrgd3.predict(X) == 1, 2, -1)))
+                        np.where(self.lrgd3.predict(X) == 1, 2,
+                                 np.where(self.lrgd2.predict(X) == 1, 1, 1)))
 
 
 def main():
@@ -74,9 +74,9 @@ def main():
     lrgd3 = LogisticRegressionGD(eta=0.05, n_iter=1000, random_state=1)
     lrgd3.fit(X_train, y_train_3)
 
-    asdf = MultiClassClassifier(lrgd1, lrgd2, lrgd3)
+    logisticRegressionMultiClassClassifier = LogisticRegressionMultiClassClassifier(lrgd1, lrgd2, lrgd3)
 
-    plot_decision_regions(X=X_train, y=y_train, classifier=asdf)
+    plot_decision_regions(X=X_train, y=y_train, classifier=logisticRegressionMultiClassClassifier)
     plt.xlabel(r'$x_1$')
     plt.ylabel(r'$x_2$')
     plt.legend(loc='upper left')
