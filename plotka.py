@@ -3,7 +3,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 
 
-def plot_decision_regions(X, y, classifier, test_idx=None, resolution=0.02):
+def plot_decision_regions(X, y, classifier, resolution=0.02):
     markers = ('s', 'x', 'o', '^', 'v')
     colors = ('red', 'blue', 'lightgreen', 'gray', 'cyan')
     colorsMap = ListedColormap(colors[:len(np.unique(y))])
