@@ -8,7 +8,6 @@ from MultiLogisticRegression import MultiLogisticRegression
 from plotka import plot_decision_regions
 from MultiPerceptron import MultiPerceptron
 from Perceptron import Perceptron
-from LogisticRegression import activation
 
 
 def main():
@@ -51,10 +50,10 @@ def main():
 
     classTrainingSubset3[(classTrainingSubset3 != 1)] = -1
 
-    ppn3 = Perceptron(learningRate=0.35, iterationsToStop=850)
-    ppn3.learn(dataTrainingSubset3, classTrainingSubset3)
+    perceptron3 = Perceptron(learningRate=0.35, iterationsToStop=850)
+    perceptron3.learn(dataTrainingSubset3, classTrainingSubset3)
 
-    multiPerceptron = MultiPerceptron(perceptron1, perceptron2, ppn3)
+    multiPerceptron = MultiPerceptron(perceptron1, perceptron2, perceptron3)
 
     plot_decision_regions(X=dataTestSet, y=classTestSet, classifier=multiPerceptron)
     plt.xlabel(r'$x_1$')
