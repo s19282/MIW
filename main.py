@@ -67,23 +67,17 @@ def main():
     classTrainingSubset1[(classTrainingSubset1 != 1)] = 0
     logisticRegression1 = LogisticRegression(learningRate=0.05, iterationsToStop=1000, random_state=1)
     logisticRegression1.learn(dataTrainingSubset1, classTrainingSubset1)
-    print("Class 2 probability")
-    print(activation(logisticRegression1.calculateValue(dataTrainingSubset1)))
-    print()
+    logisticRegression1.printProbability(dataTrainingSubset1)
 
     classTrainingSubset2[(classTrainingSubset2 != 1)] = 0
     logisticRegression2 = LogisticRegression(learningRate=0.05, iterationsToStop=1000, random_state=1)
     logisticRegression2.learn(dataTrainingSubset2, classTrainingSubset2)
-    print("Class 1 probability")
-    print(activation(logisticRegression1.calculateValue(dataTrainingSubset1)))
-    print()
+    logisticRegression2.printProbability(dataTrainingSubset2)
 
     classTrainingSubset3[(classTrainingSubset3 != 1)] = 0
     logisticRegression3 = LogisticRegression(learningRate=0.15, iterationsToStop=1500, random_state=1)
     logisticRegression3.learn(dataTrainingSubset3, classTrainingSubset3)
-    print("Class 0 probability")
-    print(activation(logisticRegression1.calculateValue(dataTrainingSubset1)))
-    print()
+    logisticRegression3.printProbability(dataTrainingSubset3)
 
     multiLogisticRegression = MultiLogisticRegression(logisticRegression1, logisticRegression2,
                                                       logisticRegression3)

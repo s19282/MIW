@@ -24,6 +24,11 @@ class LogisticRegression(object):
     def predictClass(self, irisInput):
         return np.where(self.calculateValue(irisInput) >= 0.0, 1, 0)
 
+    def printProbability(self, irisInput):
+        print("Class 2 probability")
+        print(activation(self.calculateValue(irisInput)))
+        print()
+
 
 def activation(z):
     return 1. / (1. + np.exp(-np.clip(z, -250, 250)))
