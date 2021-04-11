@@ -26,8 +26,6 @@ def main():
 
     giniTree2 = DecisionTreeClassifier(criterion='gini', max_depth=6, random_state=1)
     giniTree2.fit(X_train, y_train)
-    X_combined = np.vstack((X_train, X_test))
-    y_combined = np.hstack((y_train, y_test))
     plot_decision_regions(X_combined, y_combined, classifier=giniTree2, test_idx=range(105, 150))
     plt.xlabel('Długość płatka [cm]')
     plt.ylabel('Szerokość płatka [cm]')
@@ -37,8 +35,6 @@ def main():
 
     entropyTree = DecisionTreeClassifier(criterion='entropy', max_depth=4, random_state=1)
     entropyTree.fit(X_train, y_train)
-    X_combined = np.vstack((X_train, X_test))
-    y_combined = np.hstack((y_train, y_test))
     plot_decision_regions(X_combined, y_combined, classifier=entropyTree, test_idx=range(105, 150))
     plt.xlabel('Długość płatka [cm]')
     plt.title('Entropy, depth 4')
