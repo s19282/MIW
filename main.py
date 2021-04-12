@@ -58,6 +58,7 @@ def main():
     plot_decision_regions(X=dataTestSet, y=classTestSet, classifier=multiPerceptron)
     plt.xlabel(r'$x_1$')
     plt.ylabel(r'$x_2$')
+    plt.title('Perceptron')
     plt.legend(loc='upper left')
     plt.show()
 
@@ -84,6 +85,7 @@ def main():
     plot_decision_regions(X=dataTestSet, y=classTestSet, classifier=multiLogisticRegression)
     plt.xlabel(r'$x_1$')
     plt.ylabel(r'$x_2$')
+    plt.title('Logistic regression')
     plt.legend(loc='lower right')
     plt.show()
 
