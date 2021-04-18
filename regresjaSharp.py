@@ -7,17 +7,15 @@ a = np.loadtxt('data/dane2.txt')
 x = a[:, [1]]
 y = a[:, [0]]
 
-# xTraining, xTest, yTraining, yTest = train_test_split(x, y,
-#                                                       test_size=0.3,
-#                                                       random_state=1,
-#                                                       stratify=y)
-c = np.hstack([x, np.ones(x.shape)])
-c1 = np.hstack([np.arctan(x), np.ones(x.shape)])
-c2 = np.hstack([np.cbrt(x), np.ones(x.shape)])  # cube root
+xTraining, xTest, yTraining, yTest = train_test_split(x, y, test_size=0.3)
 
-v = np.linalg.pinv(c) @ y
-v1 = np.linalg.pinv(c1) @ y
-v2 = np.linalg.pinv(c2) @ y
+c = np.hstack([xTraining, np.ones(xTraining.shape)])
+c1 = np.hstack([np.arctan(xTraining), np.ones(xTraining.shape)])
+c2 = np.hstack([np.cbrt(xTraining), np.ones(xTraining.shape)])  # cube root
+
+v = np.linalg.pinv(c) @ yTraining
+v1 = np.linalg.pinv(c1) @ yTraining
+v2 = np.linalg.pinv(c2) @ yTraining
 
 e = sum((y - v1[0] * x + v1[1]) ** 2)
 e1 = sum((y - v1[0] * np.arctan(x) + v1[1]) ** 2)
