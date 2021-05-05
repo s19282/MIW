@@ -2,31 +2,39 @@ from time import sleep
 import numpy as np
 import matplotlib.pyplot as plt
 
-p = np.arange(-2, 2, 0.1)
-t = p.T ** 2 + 1*(np.random.rand(p)-0.5)
-# TODO: check t once more
-s1 = 100
-w1 = np.random.rand(s1, 1) - .5
-b1 = np.random.rand(s1, 1) - .5
-w2 = np.random.rand(1, s1) - .5
-b2 = np.random.rand(1, 1) - .5
+P = np.arange(-2, 2.1, 0.1).reshape(1, 41)
+T = P ** 2 + 1 * (np.random.rand(P[0].size) - 0.5)
 
-lr = 0.001
+S1 = 4
+W1 = np.random.rand(S1, 1) - 0.5
+B1 = np.random.rand(S1, 1) - 0.5
+W2 = np.random.rand(1, S1) - 0.5
+B2 = np.random.rand(1, 1) - 0.5
 
-for x in range(1, 20):
-    a1 = np.tanh(w1 @ p + b1 @ np.ones(p))
-    a2 = w2 @ a1 + b2
+lr = 0.01
 
-    e2 = t - a2
-    e1 = w2.T @ e2
+for epoka in range(1, 200):
+    s = W1 @ P + B1 @ np.ones(P[0].size).reshape(1, 41)
 
-    dw2 = lr @ e2 @ a1.T
-    db2 = lr @ e2 @ np.ones(e2).T
-    dw1 = lr @ (1 - a1 * a1) * e1 @ p.T
-    db1 = lr @ (1 - a1 * a1) * e1 @ np.ones(p).T
+    A1 = np.arctan(s)
+    A2 = W2 @ A1 + B2
 
-    if x % 1 == 0:
-        plt.clf()
-        plt.plot(p, t, 'r*')
-        plt.plot(p, a2)
-        sleep(.25)
+    E2 = T - A2
+    E1 = W2.T @ E2
+
+    dW2 = lr * E2 @ A1.T
+    dB2 = lr * E2 @ np.ones(E2[0].size).T
+    dW1 = lr * 1. / (1 + s * s) * E1 @ P.T
+    dB1 = lr * 1. / (1 + s * s) * E1 @ np.ones(P[0].size).T
+    dB1 = dB1.reshape(4, 1)
+    W2 = W2 + dW2
+    B2 = B2 + dB2
+    W1 = W1 + dW1
+    B1 = B1 + dB1
+
+    if epoka % 10 == 0:
+        print(epoka)
+        plt.plot(P, A2, 'g*')
+        plt.plot(P, T, 'r*')
+        plt.show()
+        sleep(.5)
