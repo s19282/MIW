@@ -34,7 +34,7 @@ for epoka in range(1, 200):
 
     if epoka % 10 == 0:
         print(epoka)
-        plt.plot(P, A2, 'g*')
+        plt.plot(P[0], A2[0], '-g')
         plt.plot(P, T, 'r*')
         plt.show()
         sleep(.5)
