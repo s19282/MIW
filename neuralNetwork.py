@@ -26,7 +26,7 @@ for epoka in range(1, 200):
     dB2 = lr * E2 @ np.ones(E2[0].size).T
     dW1 = lr * 1. / (1 + s * s) * E1 @ P.T
     dB1 = lr * 1. / (1 + s * s) * E1 @ np.ones(P[0].size).T
-    dB1 = dB1.reshape(4, 1)
+    dB1 = dB1.reshape(S1, 1)
     W2 = W2 + dW2
     B2 = B2 + dB2
     W1 = W1 + dW1
@@ -37,4 +37,4 @@ for epoka in range(1, 200):
         plt.plot(P[0], A2[0], '-g')
         plt.plot(P, T, 'r*')
         plt.show()
-        sleep(.5)
+        sleep(.25)
